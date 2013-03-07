@@ -1,0 +1,45 @@
+﻿<div id = "content">
+
+<form id = "form" method = "post" action = "index.php?id=login&cmd=registracia_proc">
+	<fieldset>
+	<label>Zakladne udaje</label>
+	<p>
+		<label>Meno:</label>
+		<input type = "text" class = "text" name = "meno">
+	</p>
+	<p>
+		<label>Priezvisko</label>
+		<input type = "text" class = "text" name = "priezvisko">
+	</p>
+	</fieldset>
+	<fieldset>
+	<label>Kontaktne udaje</label>
+	<p>
+		<label>E-mail</label>
+		<input type = "text" class = "text" name = "e_mail">
+	</p>
+	<p>
+		<label>Tel. cislo</label>
+		<input type = "text" class = "text" name = "tel_cislo">
+	</p>
+	</fieldset>
+	<fieldset>
+	<label>Prihlasovacie udaje</label>	
+	<p>
+		<label>Nick</label>
+		<input type = "text" class = "text" name = "nick">
+		<!-- BEGIN chyba_mena -->
+			<span style = "color:red">Zadaný užívateľ už existuje</span> 
+		<!-- END chyba_mena -->
+	</p>
+	<p>
+		<label>Heslo</label>
+		<input type = "password" class = "text" name = "heslo">
+	</p>
+	</fieldset>
+	<p>
+		<label>&nbsp;</label>
+		<input class = "btn" type = "submit" name = "submit" value = "Registrovat">
+	</p>
+</form>
+</div>

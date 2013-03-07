@@ -1,0 +1,35 @@
+<div id = "content">
+    <script type = "text/javascript">
+    function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
+    function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
+    </script>
+     
+    <h1>Prehlad uzivatelov</h1>
+
+    <br>
+    <table id = "tabulka_admin">
+        <thead>
+            <tr>
+                <th>Meno</th><th>Priezvisko</th><th>Nick</th><th>E-mail</th><th>Telefon</th><th>&nbsp;</th><th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN riadok -->
+            <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
+                <td>{meno}</td>
+                <td>{priezvisko}</td>
+                <td>{nick}</td>
+				<td>{e_mail}</td>
+				<td>{tel_cislo}</td>
+				<td>
+					<a href = "index.php?id=uzivatelia&cmd=podrobnosti_uzivatela&idcko={id}">Podrobnosti</a>
+				</td>
+                <td>
+					<a href = "index.php?id=uzivatelia&cmd=zmaz_uzivatela&idcko={id}">Upravit</a>
+                </td>
+            </tr>
+            <!-- END riadok -->
+        </tbody>
+    </table>
+    
+</div>

@@ -1,0 +1,49 @@
+<div id = "content">
+    <script type = "text/javascript">
+    function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
+    function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
+    </script>
+     <script type="text/javascript" src="js/jquery.tablednd.0.7.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // Initialise the table
+        $("#tabulka_admin").tableDnD();
+    });
+    </script>
+    <h1>Administracia menu</h1>
+
+    <a href = "index.php?id=admin&cmd=nova_polozka">Nova Polozka</a>
+    <br>
+    <br>
+    <br>
+
+
+    <form id = "form" method = "post" action = "index.php?id=admin&cmd=menu_proc">
+    <table id = "tabulka_admin">
+        <thead>
+            <tr>
+                <th>Nazov</th><th>Modul</th><th>Subor</th><th>Administrator</th><th>Uzivatel</th><th>Neprihlaseny</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN riadok -->
+            <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
+                <td>{nazov}</td>
+                <td>{modul}</td>
+                <td>{subor}</td>
+                <!-- BEGIN grupa -->
+                <td>
+                <input type = "checkbox" name = "{pristup}[{idcko}]" {oznacit}>
+                </td>
+                <!-- END grupa -->
+
+                <td>
+                <a href = "index.php?id=admin&cmd=uprav_polozku&idcko={id}">Upravit</a>
+                </td>
+            </tr>
+            <!-- END riadok -->
+        </tbody>
+    </table>
+    <input type = "submit" class = "btn" name = "ulozit" value = "Ulozit">
+    </form>
+</div>

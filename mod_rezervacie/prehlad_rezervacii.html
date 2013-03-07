@@ -1,0 +1,36 @@
+<div id = "content">
+    <script type = "text/javascript">
+    function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
+    function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
+    </script>
+     
+    <h1>Prehlad rezervacii</h1>
+
+    <br>
+    <table id = "tabulka_admin">
+        <thead>
+            <tr>
+                <th>ID</th><th>Datum</th><th>Cas</th><th>Sportovisko</th><th>Relizovane</th><th>Podrobnosti</th><th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN riadok -->
+            <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
+                <td>{id}</td>
+                <td>{datum}</td>
+                <td>{cas}</td>
+				<td>{sportovisko}</td>
+				<td>{realizovane}</td>
+				<td>
+					<a href = "index.php?id=rezervacie&cmd=podrobnosti_rezervacie&idcko={id}">Podrobnosti</a>
+				</td>
+				<td>
+					<a href = "index.php?id=rezervacie&cmd=vymazat_rezervaciu&idcko={id}">Vymazat</a>
+				</td>
+            </tr>
+            <!-- END riadok -->
+        </tbody>
+    </table>
+   
+    
+</div>

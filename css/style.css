@@ -1,0 +1,93 @@
+#top
+{
+	border-top:1px solid black;
+	border-bottom:1px solid black;
+	font-size:11px;
+	background-color:#CFCFE3;
+	width: 980px;
+	height: 80px;
+	margin: 0 auto;
+	padding: 4px 0 0 0;
+} 
+
+#menu
+{
+	border-top:1px solid black;
+	background-color:#8383A9;
+	width: 980px;
+	height: 32px;
+	margin: 0 auto;
+	margin-top: 10px;
+	font-size: 12px;
+} 
+
+#content
+{
+	background-color:#C1C1E3;
+	border-bottom:1px solid black;
+	width: 980px;
+	margin: 0 auto;
+} 
+
+#prihlasenie
+{
+	float:right;
+}
+
+#podrobnosti
+{
+	display : none;
+}
+
+.login 
+{
+	width:100px;
+	line-height:37px;
+	text-align:right;
+	margin-right:15px;
+	font-weight:bold;
+	color:#666;
+}
+	
+#tabulka_admin 
+{ 	
+	width : 100%; 
+	text-align:left	
+}
+	
+#tabulka_admin td 
+{ 
+	padding : 5px; 
+}
+	
+#tabulka_admin td:first-child  
+{	
+	width : 200px;	
+}
+	
+legend 
+{
+	color:black;
+	font-weight:bold;
+	text-align:left;
+}
+
+.header-img-header
+{
+    display: inline-block;
+    width: 50%;
+}
+
+.header-img-img
+{
+    display: inline-block; text-align: right; width: 49%;
+}
+
+
+.popis label {
+    display:block; 
+    margin-top:15px;
+}
+ 
+
+

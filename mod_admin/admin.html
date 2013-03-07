@@ -1,0 +1,39 @@
+﻿<div id = "content">
+<script type = "text/javascript">
+function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
+function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
+</script>
+<h1>Administracia modulov</h1>
+
+<form method = "post" action = "index.php?id=admin&cmd=admin_proc">
+	<table id = "tabulka_admin" style = "text-align:center">
+		<tr>
+		<td></td>
+		<!-- BEGIN hlavicka -->
+			<td style = "font-weight:bold">{nazov_skupiny}</td>
+		<!-- END hlavicka -->
+		</tr>
+	</table>
+
+	<!-- BEGIN modul -->
+	<fieldset>
+	<table id = "tabulka_admin">
+		<legend>{nazov_modulu}</legend>
+		<!-- BEGIN subor -->
+			<tr onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
+				<td>{nazov_suboru}</td>
+				<!-- BEGIN check -->
+					<td>
+					<input type = "checkbox" name = "{checkbox_nazov}" {oznacene}>
+					</td>
+				<!-- END check -->
+			</tr>
+		<!-- END subor -->
+	</table>
+	</fieldset>
+	<br>
+	<!-- END modul -->
+	
+	<input type = "submit" name = "ulozit" value = "Uložiť">
+</form>
+</div>

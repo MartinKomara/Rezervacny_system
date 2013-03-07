@@ -1,0 +1,28 @@
+<div id = "content">
+
+<h1>Administracia menu</h1>
+
+<a href = "index.php?id=admin&cmd=admin_menu">Administracia poloziek</a>
+<a href = "index.php?id=admin&cmd=nova_polozka">Nova polozka</a>
+<form id = "form" method = "post" action = "index.php?id=admin&cmd=uprav_polozku_proc">
+<input type = "hidden" name = "id" value = "{id}">
+<p>
+	<label>Nazov</label>
+	<input type = "text" name = "nazov" value = "{nazov}">
+</p>
+<p>
+	<label>Modul</label>
+	<input type = "text" name = "modul" value = "{modul}">
+</p>
+<p>
+	<label>Subor</label>
+	<input type = "text" name = "subor" value = "{subor}">
+</p>
+<p>
+	<label>&nbsp;</label>
+	<input type = "submit" name = "ulozit" value = "Ulozit">
+	<input type = "submit" name = "zmazat" value = "Zmazat">
+</p>
+</form>
+
+</div>
