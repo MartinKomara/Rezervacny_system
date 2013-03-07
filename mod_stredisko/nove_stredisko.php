@@ -1,10 +1,11 @@
 <?php
 require_once 'HTML/Template/Sigma.php';
-$tpl = new HTML_Template_Sigma('./mod_sportovisko');
-$tpl->loadTemplateFile('nove_sportovisko.html');
+$tpl = new HTML_Template_Sigma('./mod_stredisko');
+$tpl->loadTemplateFile('nove_stredisko.html');
 
 
 $tyzden = array("Pondelok","Utorok","Streda","Stvrtok","Piatok","Sobota","Nedela");
+
 foreach ($tyzden as $den)
 {
 	$interval = 15;
@@ -19,11 +20,13 @@ foreach ($tyzden as $den)
 		$tpl->setVariable("nazov_dna",$den);
 	$tpl->parseCurrentBlock("den");
 }
-
+$j = 0;
 foreach($tyzden as $den)
 {
 	$tpl->setCurrentBlock("hod_den");
 	$tpl->setVariable("nazov_dna",$den);
+        $tpl->setVariable("tyzden_oznacenie",$j);
+        $j++;
 	$tpl->parseCurrentBlock("hod_den");
 }
 	

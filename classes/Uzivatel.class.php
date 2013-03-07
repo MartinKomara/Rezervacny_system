@@ -1,14 +1,7 @@
 <?php
 class Uzivatel
 {
-	var $spojenie;
-	private $meno;
-	private $priezvisko;
-	private $nick;
-	private $e_mail;
-	private $tel_cislo;
-	private $enc_password;
-	private $crypt;
+	var $spojenie;	
 	
 	public function __construct($db) {
         $this->spojenie = $db;
@@ -54,7 +47,7 @@ class Uzivatel
 	
 	}
 	
-	public function zmaz_uzivatela_podla_id($id)
+	public function zmaz_uzivatela($id)
 	{
 		$this->spojenie->zmazZaznam("uzivatelia","id = $id");		
 	}
@@ -78,6 +71,16 @@ class Uzivatel
 		$result = $this->spojenie->getZaznam($sql,"id");
 		return $result;	
 	}
+        
+        public function vrat_uzivatelov()
+        {
+            $uzivatelia = $this->spojenie->getZaznamy("SELECT uzivatelia.id as id, uzivatelia.meno as meno, uzivatelia.nick as nick,
+                                                       uzivatelia.priezvisko as priezvisko, uzivatelia.tel_cislo as tel_cislo,
+                                                       uzivatelia.e_mail as e_mail FROM uzivatelia","id");
+            return $uzivatelia;
+        }
+        
+        
 
 }
 ?>

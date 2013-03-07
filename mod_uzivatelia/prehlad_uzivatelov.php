@@ -5,31 +5,20 @@ require_once 'HTML/Template/Sigma.php';
 $tpl = new HTML_Template_Sigma('./mod_uzivatelia');
 $tpl->loadTemplateFile('prehlad_uzivatelov.html');
 
-/*
-$result = $db->getZaznamy("select * from menu","id");
-foreach($result as $value)
+$uzivatel = new Uzivatel($db);
+
+$vsetci_uzivatelia = $uzivatel->vrat_uzivatelov();
+
+foreach($vsetci_uzivatelia as $hodnota)
 {
-	$menu_id = $value['id'];
-	
-		$grupy = $db->getZaznamy("select * from groups","id");
-		foreach($grupy as $grupa)
-		{
-			$idcko = $grupa['id'];
-			$pocet = $db->num_rows("select * from menu_to_groups where menu_id = $menu_id and group_id = $idcko");
-		    if ($pocet != 0)
-				$tpl->setVariable('oznacit',"checked");
-			$tpl->setCurrentBlock('grupa');
-			$tpl->setVariable('pristup',$grupa['nazov']);
-			$tpl->setVariable('idcko',$value['id']);
-			$tpl->parseCurrentBlock('grupa');
-		}
-	$tpl->setCurrentBlock('riadok');
-	$tpl->setVariable('nazov',$value['nazov']);
-	$tpl->setVariable('modul',$value['modul']);
-	$tpl->setVariable('subor',$value['subor']);
-	$tpl->setVariable('id',$value['id']);
-	$tpl->parseCurrentBlock('riadok');
+    $tpl->setCurrentBlock('riadok');
+        $tpl->setVariable('id',$hodnota['id']);
+        $tpl->setVariable('meno',$hodnota['meno']);
+        $tpl->setVariable('priezvisko',$hodnota['priezvisko']);
+        $tpl->setVariable('nick',$hodnota['nick']);
+        $tpl->setVariable('e_mail',$hodnota['e_mail']);
+        $tpl->setVariable('tel_cislo',$hodnota['tel_cislo']);
+    $tpl->parseCurrentBlock('riadok');
 }
 
-*/
 $tpl->show();

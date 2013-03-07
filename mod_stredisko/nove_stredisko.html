@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 <h1>Nove Stredisko</h1>
 
-<form method = "post" class ="formular" action = "index.php?id=sportovisko&cmd=nove_sportovisko_proc">
+<form method = "post" class ="formular" action = "index.php?id=stredisko&cmd=nove_stredisko_proc">
     <fieldset>
         <legend>Zakladne informacie</legend>
 	<span class ="popis">
@@ -57,8 +57,8 @@ $(document).ready(function() {
 	<legend>Otvaracie hodiny</legend>
 	<!-- BEGIN hod_den -->
 		{nazov_dna}
-			<input type = "text" class = "cas" name = "{nazov_dna}[]" size = "5">
-			<input type = "text" class = "cas" name = "{nazov_dna}[]" size = "5">
+			<input type = "text" class = "cas" name = "hodiny_{tyzden_oznacenie}[]" size = "5">
+			<input type = "text" class = "cas" name = "hodiny_{tyzden_oznacenie}[]" size = "5">
 			<br>
 	<!-- END hod_den -->
 	
@@ -102,6 +102,14 @@ $(document).ready(function() {
 	<p>
 		<label>Tel. cislo</label>
 		<input type = "text" name = "tel_cislo">
+	</p>
+        <p>
+		<label>E-mail</label>
+		<input type = "text" name = "e_mail">
+	</p>
+        <p>
+		<label>Webova stranka</label>
+		<input type = "text" name = "webova_stranka">
 	</p>
     </fieldset>
 	<input type = "submit" name = "ulozit" value = "Ulozit">

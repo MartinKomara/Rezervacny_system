@@ -10,22 +10,23 @@
     <table id = "tabulka_admin">
         <thead>
             <tr>
-                <th>Meno</th><th>Priezvisko</th><th>Nick</th><th>E-mail</th><th>Telefon</th><th>&nbsp;</th><th>&nbsp;</th>
+                <th>ID</th><th>Meno</th><th>Priezvisko</th><th>Nick</th><th>E-mail</th><th>Telefon</th><th>Podrobnosti</th><th>Vymazat</th>
             </tr>
         </thead>
         <tbody>
             <!-- BEGIN riadok -->
             <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
+                <td>{id}</td>
                 <td>{meno}</td>
                 <td>{priezvisko}</td>
                 <td>{nick}</td>
-				<td>{e_mail}</td>
-				<td>{tel_cislo}</td>
-				<td>
-					<a href = "index.php?id=uzivatelia&cmd=podrobnosti_uzivatela&idcko={id}">Podrobnosti</a>
-				</td>
+		<td>{e_mail}</td>
+		<td>{tel_cislo}</td>
+		<td>
+			<a href = "index.php?id=uzivatelia&cmd=prehlad_uzivatelov&uzivatel_id={id}">Podrobnosti</a>
+		</td>
                 <td>
-					<a href = "index.php?id=uzivatelia&cmd=zmaz_uzivatela&idcko={id}">Upravit</a>
+			<a href = "index.php?id=uzivatelia&cmd=vymazat_uzivatela_proc&uzivatel_id={id}">Vymazat</a>
                 </td>
             </tr>
             <!-- END riadok -->

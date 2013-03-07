@@ -16,7 +16,7 @@ $db = new db($db_con);
 include 'classes/Crypto.class.php';
 include 'classes/Uzivatel.class.php';
 include 'classes/Menu.class.php';
-include 'classes/Sportovisko.class.php';
+include 'classes/Stredisko.class.php';
 
 
 
