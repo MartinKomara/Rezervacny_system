@@ -22,12 +22,12 @@ if (!isset($_SESSION['group_id']))
 else 
 	$group_id = $_SESSION['group_id'];
 	
-$result = $db->getZaznamy("select * from menu join menu_to_groups on menu.id = menu_to_groups.menu_id where menu_to_groups.group_id = $group_id","id");
+$result = $db->getZaznamy("select * from menu join menu_skupiny on menu.menu_id = menu_skupiny.menu_id where menu_skupiny.skupiny_id = $group_id","menu_id");
 
 foreach($result as $value)
 {
 	$tpl->setCurrentBlock('riadok');
-	$tpl->setVariable('id',$value['id']);
+	$tpl->setVariable('id',$value['menu_id']);
 	$tpl->setVariable('nazov',$value['nazov']);
 	if ($zalozka == $value['modul'].$value['subor'])
 		$tpl->setVariable('oznacene',"oznacene");

@@ -5,28 +5,28 @@ $tpl->loadTemplateFile('admin_menu.html');
 
 //$result = $db->getZaznamy("select menu.id as id, menu.nazov as nazov, menu.modul as modul,menu.subor as subor from menu join menu_to_groups on menu.id = menu_to_groups.menu_id","id");
 
-$result = $db->getZaznamy("select * from menu","id");
+$result = $db->getZaznamy("select * from menu","menu_id");
 foreach($result as $value)
 {
-	$menu_id = $value['id'];
+	$menu_id = $value['menu_id'];
 	
-		$grupy = $db->getZaznamy("select * from groups","id");
+		$grupy = $db->getZaznamy("select * from skupiny","skupiny_id");
 		foreach($grupy as $grupa)
 		{
-			$idcko = $grupa['id'];
-			$pocet = $db->num_rows("select * from menu_to_groups where menu_id = $menu_id and group_id = $idcko");
+			$idcko = $grupa['skupiny_id'];
+			$pocet = $db->num_rows("select * from menu_skupiny where menu_id = $menu_id and skupiny_id = $idcko");
 		    if ($pocet != 0)
 				$tpl->setVariable('oznacit',"checked");
 			$tpl->setCurrentBlock('grupa');
 			$tpl->setVariable('pristup',$grupa['nazov']);
-			$tpl->setVariable('idcko',$value['id']);
+			$tpl->setVariable('idcko',$value['menu_id']);
 			$tpl->parseCurrentBlock('grupa');
 		}
 	$tpl->setCurrentBlock('riadok');
 	$tpl->setVariable('nazov',$value['nazov']);
 	$tpl->setVariable('modul',$value['modul']);
 	$tpl->setVariable('subor',$value['subor']);
-	$tpl->setVariable('id',$value['id']);
+	$tpl->setVariable('id',$value['menu_id']);
 	$tpl->parseCurrentBlock('riadok');
 }
 

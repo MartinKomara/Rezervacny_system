@@ -44,8 +44,8 @@ $pristup = 0;
 
 if (isset($_SESSION['group_id']) && !empty($_SESSION['group_id']))
 {
-	$prava = $db->getZaznamy("select prava_to_groups.id as id,prava_to_groups.group_id as prava from prava_to_groups join pristupove_prava on
-    (prava_to_groups.prava_id = pristupove_prava.id) and pristupove_prava.nazov = '$subor'",'id');
+	$prava = $db->getZaznamy("select prava_skupiny.prava_skupiny_id as id, prava_skupiny.skupiny_id as prava from prava_skupiny join pristupove_prava on
+    (prava_skupiny.pristupove_prava_id = pristupove_prava.pristupove_prava_id) and pristupove_prava.nazov = '$subor'",'id');
     
 	foreach ($prava as $value)
 	{
@@ -58,8 +58,8 @@ if (isset($_SESSION['group_id']) && !empty($_SESSION['group_id']))
 }
 else
 {
-    $prava = $db->getZaznamy("select prava_to_groups.id as id, prava_to_groups.group_id as prava from prava_to_groups join pristupove_prava on
-    (prava_to_groups.prava_id = pristupove_prava.id) and pristupove_prava.nazov = '$subor'",'id');
+    $prava = $db->getZaznamy("select prava_skupiny.prava_skupiny_id as id, prava_skupiny.skupiny_id as prava from prava_skupiny join pristupove_prava on
+    (prava_skupiny.pristupove_prava_id = pristupove_prava.pristupove_prava_id) and pristupove_prava.nazov = '$subor'",'id');
 	
 	foreach ($prava as $value)
 	{

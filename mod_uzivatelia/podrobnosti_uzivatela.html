@@ -4,33 +4,34 @@
     function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
     </script>
      
-    <h1>Prehlad uzivatelov</h1>
+    <h1>Prehlad rezervacii</h1>
+    <h3>{uzivatel_meno}</h3>
 
     <br>
     <table id = "tabulka_admin">
         <thead>
             <tr>
-                <th>ID</th><th>Meno</th><th>Priezvisko</th><th>Nick</th><th>E-mail</th><th>Telefon</th><th>Podrobnosti</th><th>Vymazat</th>
+                <th>ID</th><th>Datum</th><th>Cas</th><th>Sportovisko</th><th>Relizovane</th><th>Podrobnosti</th><th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
             <!-- BEGIN riadok -->
             <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
                 <td>{id}</td>
-                <td>{meno}</td>
-                <td>{priezvisko}</td>
-                <td>{nick}</td>
-		<td>{e_mail}</td>
-		<td>{tel_cislo}</td>
-		<td>
-			<a href = "index.php?id=uzivatelia&cmd=podrobnosti_uzivatela&uzivatel_id={id}">Podrobnosti</a>
-		</td>
-                <td>
-			<a href = "index.php?id=uzivatelia&cmd=vymazat_uzivatela_proc&uzivatel_id={id}">Vymazat</a>
-                </td>
+                <td>{datum}</td>
+                <td>{cas}</td>
+				<td>{sportovisko}</td>
+				<td>{realizovane}</td>
+				<td>
+					<a href = "index.php?id=rezervacie&cmd=podrobnosti_rezervacie&idcko={id}">Podrobnosti</a>
+				</td>
+				<td>
+					<a href = "index.php?id=rezervacie&cmd=vymazat_rezervaciu&idcko={id}">Vymazat</a>
+				</td>
             </tr>
             <!-- END riadok -->
         </tbody>
     </table>
+   
     
 </div>

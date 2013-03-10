@@ -7,7 +7,7 @@ $tpl->loadTemplateFile('admin.html');
 
 $moduly = array();
 
-$groups = $db->getZaznamy("select * from groups","id");
+$groups = $db->getZaznamy("select * from skupiny","skupiny_id");
 
 function vytried($str)
 {
@@ -43,12 +43,12 @@ if ($handle = opendir('.')) {
 	$subory = scandir($modul);
 		
 	foreach($subory as $subor)	
-	{			
+	{				
 			 if ((!in_array($subor,array(".",".."))) && (vytried($subor) == false))
 			 {
 				$nazov_suboru = substr($subor,0,-4);
 				
-				$pocet = $db->num_rows("select * from pristupove_prava where nazov = '$nazov_suboru'");
+				$pocet = $db->num_rows("select * from pristupove_prava where nazov = '{$nazov_suboru}'");
 				if ($pocet == 0)
 				{
 					$prava = array();
@@ -58,29 +58,29 @@ if ($handle = opendir('.')) {
 					
 					for ($i = 1; $i < 4; $i++)
 					{
-						$pole['prava_id'] = $id;
-						$pole['group_id'] = $i;
-						$db->makeInsert('prava_to_groups',$pole);
+						$pole['pristupove_prava_id'] = $id;
+						$pole['skupiny_id'] = $i;
+						$db->makeInsert('prava_skupiny',$pole);
 					}
 				}
 				
 				foreach($groups as $group)
 				{
 					$tpl->setCurrentBlock('check');
-					$riadok = $db->getZaznamy("select prava_to_groups.id as id, prava_to_groups.group_id as group_id from prava_to_groups join pristupove_prava on (prava_to_groups.prava_id = pristupove_prava.id) where pristupove_prava.nazov = '$nazov_suboru'",'id');
+					$riadok = $db->getZaznamy("select prava_skupiny.prava_skupiny_id as id, prava_skupiny.skupiny_id as group_id from prava_skupiny join pristupove_prava on (prava_skupiny.pristupove_prava_id = pristupove_prava.pristupove_prava_id) where pristupove_prava.nazov = '$nazov_suboru'",'id');
 
-					$tmp = $db->getZaznam("select * from pristupove_prava where nazov = '$nazov_suboru'","id");
+					$tmp = $db->getZaznam("select pristupove_prava.pristupove_prava_id as id, nazov from pristupove_prava where nazov = '{$nazov_suboru}'","nazov");
 					$idcko = $tmp['id'];
 					$checkbox_nazov = $group['nazov'];
 					$tpl->setVariable('checkbox_nazov',$checkbox_nazov."[".$idcko."]");
 
 					foreach($riadok as $value)
 					{
-						if ($value['group_id'] == 1 && $group['id'] == 1)					
+						if ($value['group_id'] == 1 && $group['skupiny_id'] == 1)					
 							$tpl->setVariable("oznacene","checked");
-						if ($value['group_id'] == 2 && $group['id'] == 2)					
+						if ($value['group_id'] == 2 && $group['skupiny_id'] == 2)					
 							$tpl->setVariable("oznacene","checked");
-						if ($value['group_id'] == 3 && $group['id'] == 3)					
+						if ($value['group_id'] == 3 && $group['skupiny_id'] == 3)					
 							$tpl->setVariable("oznacene","checked");
 					}
 					$tpl->parseCurrentBlock('check'); 
@@ -106,7 +106,6 @@ if ($handle = opendir('.')) {
 	}
 
     
-
     closedir($handle);
 }
 

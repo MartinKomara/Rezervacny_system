@@ -4,7 +4,6 @@ $uzivatel = new Uzivatel($db);
 $meno = $_POST['prihlasovacie_meno'];
 $heslo = $_POST['prihlasovacie_heslo'];
 
-$pocet = $db->num_rows("select * from uzivatelia where nick = '{$meno}'");
 if (!$uzivatel->over_nick($meno))
 {
     header ("Location:/?id=home&cmd=home&chyba=1");

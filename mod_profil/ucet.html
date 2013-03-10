@@ -1,44 +1,62 @@
-﻿<div id = "content">
+<div id = "content">
 
-<form id = "form" method = "post" action = "index.php?id=login&cmd=ucet_proc">
+<form id = "form" method = "post" action = "index.php?id=profil&cmd=ucet_proc">
 
 <!-- BEGIN ucet -->
+        <input type ="hidden" name ="uzivatel_id" value ="{uzivatel_id}">
 	<fieldset>
 	<label>Zakladne udaje</label>
 	<p>
 		<label>Meno:</label>
-		<input type = "text" class = "text" name = "meno" value = "{meno}">
+		<input type = "text" name = "meno" value = "{meno}">
 	</p>
 	<p>
 		<label>Priezvisko</label>
-		<input type = "text" class = "text" name = "priezvisko" value = "{priezvisko}">
+		<input type = "text" name = "priezvisko" value = "{priezvisko}">
+	</p>
+        <p>
+		<label>Nick</label>
+		<input type = "text" name = "nick" value = "{nick}">
+                <!-- BEGIN chyba_nick -->
+			<span style = "color:red">Zadany uzivatel uz existuje</span> 
+		<!-- END chyba_nick -->
 	</p>
 	</fieldset>
 	<fieldset>
 	<label>Kontaktne udaje</label>
 	<p>
 		<label>E-mail</label>
-		<input type = "text" class = "text" name = "e_mail" value = "{e_mail}">
+		<input type = "text" name = "e_mail" value = "{e_mail}">
 	</p>
 	<p>
 		<label>Tel. cislo</label>
-		<input type = "text" class = "text" name = "tel_cislo" value = "{tel_cislo}">
+		<input type = "text" name = "tel_cislo" value = "{tel_cislo}">
 	</p>
 	</fieldset>
 	<fieldset>
-	<label>Prihlasovacie udaje</label>
+	<label>Zmena hesla</label>
 	<p>
-		<label>	Heslo</label>
-		<input type = "password" class = "text" name = "heslo">
+		<label>Stare heslo</label>
+		<input type = "password" name = "stare_heslo">
+                <!-- BEGIN chyba_stare_heslo -->
+			<span style = "color:red">Nespravne heslo</span> 
+		<!-- END chyba_stare_heslo -->
 	</p>
 	<p>
-		<label>Nick</label>
-		<input type = "text" class = "text" name = "nick" value = "{nick}">
+		<label>Nove heslo</label>
+		<input type = "password" name = "nove_heslo">
+	</p>
+        <p>
+		<label>Nove heslo znovu</label>
+		<input type = "password" name = "nove_heslo_znova">
+                <!-- BEGIN chyba_nove_heslo -->
+			<span style = "color:red">Hesla sa nezhoduju</span> 
+		<!-- END chyba_nove_heslo -->
 	</p>
 	</fieldset>
 	<p>
 		<label>&nbsp;</label>
-		<input class = "btn" type = "submit" name = "submit" value = "Registrovat">
+		<input type = "submit" name = "submit" value = "Ulozit">
 	</p>
 	
 <!-- END ucet -->

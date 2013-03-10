@@ -24,17 +24,17 @@ class Menu
 		$menu['nazov'] = $nazov;
 		$menu['modul'] = $modul;
 		$menu['subor'] = $subor;
-		$this->spojenie->makeUpdate("menu",$menu,"id = $id");	
+		$this->spojenie->makeUpdate("menu",$menu,"menu_id = $id");	
 	}
 	
 	public function zmaz_polozku($id)
 	{
-		$this->spojenie->query("delete from menu where id = $id");
+		$this->spojenie->zmazZaznam("menu","menu_id = {$id}");
 	}
 	
 	public function vrat_polozku($id)
 	{
-		$result = $this->spojenie->getZaznam("select * from menu where id = $id");
+		$result = $this->spojenie->getZaznam("select * from menu where menu_id = $id");
 		return $result;
 	}
 	
