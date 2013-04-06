@@ -7,6 +7,7 @@
 	
 	if (isset($_POST['odhlasit']) && !empty($_POST['odhlasit']))
 	{
+	
 		$uzivatel->odhlas();
 		header ("Location: index.php?id=home&cmd=home");
 	}

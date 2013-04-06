@@ -1,45 +1,89 @@
 <div id = "content">
-
-<form id = "form" method = "post" action = "index.php?id=login&cmd=registracia_proc">
+<script type="text/javascript">
+    $(function() { 
+        $("#reg_form").validity(function() {
+          
+		$("#meno")                         
+			.require();                 		
+		$("#priezvisko")                          
+			.require();        
+		$("#e_mail")                           
+			.require()                        
+			.match("email");  
+		$("#tel_cislo")                          
+			.require()                         
+			.match("integer"); 
+		$("#nick")
+		.require()   
+		.minLength(5, "Nick musí mať aspoň 5 znakov");  
+		$("#heslo")                         
+			.require()                         
+			.minLength(5s, "Heslo musí mať aspoň 5 znakov");   		  
+        });
+    });
+</script>
+<form id = "reg_form" class = "formular" method = "post" action = "index.php?id=login&cmd=registracia_proc">
 	<fieldset>
-	<legend>Zakladne udaje</legend>
-	<p>
-		<label>Meno:</label>
-		<input type = "text" class = "text" name = "meno">
-	</p>
-	<p>
+	<legend>Základné údaje</legend>
+	<span class ="popis">
+		<label>Meno</label>
+		<div class = "clear"></div>
+		<input type = "text" id = "meno" name = "meno" title = "Krstné meno">
+	</span>
+	<div class = "clear"></div><br>
+	<span class ="popis">
 		<label>Priezvisko</label>
-		<input type = "text" class = "text" name = "priezvisko">
-	</p>
+		<div class = "clear"></div>
+		<input type = "text" id = "priezvisko" name = "priezvisko" title = "Priezvisko">
+	</span>
 	</fieldset>
+	<div class = "clear"></div><br>
 	<fieldset>
-	<legend>Kontaktne udaje</legend>
-	<p>
+	<legend>Kontaktné údaje</legend>
+	<span class ="popis">
 		<label>E-mail</label>
-		<input type = "text" class = "text" name = "e_mail">
-	</p>
-	<p>
-		<label>Tel. cislo</label>
-		<input type = "text" class = "text" name = "tel_cislo">
-	</p>
+		<div class = "clear"></div>
+		<input type = "text" id = "e_mail" name = "e_mail" title = "E-mailová adresa">
+	</span>
+	<div class = "clear"></div><br>
+	<span class ="popis">
+		<label>Tel. číslo</label>
+		<div class = "clear"></div>
+		<input type = "text" id = "tel_cislo" name = "tel_cislo" title = "Telefónne číslo">
+	</span>
 	</fieldset>
+	<div class = "clear"></div><br>
 	<fieldset>
-	<legend>Prihlasovacie udaje</legend>	
-	<p>
+	<legend>Prihlasovacie údaje</legend>	
+	<span class ="popis">
 		<label>Nick</label>
-		<input type = "text" class = "text" name = "nick">
+		<div class = "clear"></div>
+		<input type = "text" id = "nick" name = "nick" title = "Prihlasovacie meno">
 		<!-- BEGIN chyba_mena -->
-			<span style = "color:red">Zadany uzivatel uz existuje</span> 
+			<span style = "color:red">Zadaný užívateľ už existuje</span> 
 		<!-- END chyba_mena -->
-	</p>
-	<p>
+	</span>
+	<div class = "clear"></div><br>
+	<span class ="popis">
 		<label>Heslo</label>
-		<input type = "password" class = "text" name = "heslo">
-	</p>
+		<div class = "clear"></div>
+		<input type = "password" id = "heslo" name = "heslo" title = "Prihlasovacie heslo">
+	</span>
+	<div class = "clear"></div><br>
+	<img src="{captcha}" alt="CAPTCHA" width = "100px" height = "40px"/>
+	<span class ="popis">
+		<label>Odpíšte text z obrázku</label>
+		<div class = "clear"></div>
+		<input type = "text" class = "text" name = "captcha">
+		<!-- BEGIN chyba_captcha -->
+			<span style = "color:red">Nesprávne odpísaný text z obrázku</span> 
+		<!-- END chyba_captcha -->
+	</span>
 	</fieldset>
-	<p>
+	<span class = "popis">
 		<label>&nbsp;</label>
-		<input class = "btn" type = "submit" name = "submit" value = "Registrovat">
-	</p>
+		<div class = "clear"></div>
+		<input type = "submit" id = "button" name = "registrovat" value = "Registrovať">
+	</span>
 </form>
 </div>

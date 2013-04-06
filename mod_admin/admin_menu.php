@@ -5,7 +5,9 @@ $tpl->loadTemplateFile('admin_menu.html');
 
 //$result = $db->getZaznamy("select menu.id as id, menu.nazov as nazov, menu.modul as modul,menu.subor as subor from menu join menu_to_groups on menu.id = menu_to_groups.menu_id","id");
 
-$result = $db->getZaznamy("select * from menu","menu_id");
+//$result = $db->getZaznamy("select * from menu, menu_skupiny where menu.menu_id = menu_skupiny.menu_id order by menu_skupiny.menu_skupiny_id asc","menu_id");
+$result = $db->getZaznamy("select * from menu, menu_skupiny where menu.menu_id = menu_skupiny.menu_id order by menu_skupiny.menu_skupiny_id asc","menu_id");
+
 foreach($result as $value)
 {
 	$menu_id = $value['menu_id'];

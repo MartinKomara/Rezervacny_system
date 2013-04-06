@@ -17,7 +17,7 @@ if (isset($_GET['chyba_nove_heslo']) && !empty($_GET['chyba_nove_heslo']))
     $tpl->touchBlock('chyba_nove_heslo');
 
 $tpl->setCurrentBlock('ucet');
-        $tpl->setVariable('uzivatel_id',$id);
+    $tpl->setVariable('uzivatel_id',$id);
 	$tpl->setVariable('meno',$value['meno']);
 	$tpl->setVariable('priezvisko',$value['priezvisko']);
 	$tpl->setVariable('nick',$value['nick']);

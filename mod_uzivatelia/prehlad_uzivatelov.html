@@ -1,16 +1,64 @@
 <div id = "content">
+	<script src="js/sorttable.js"></script>
     <script type = "text/javascript">
     function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
     function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
-    </script>
-     
-    <h1>Prehlad uzivatelov</h1>
+    
+	$(document).ready(function() {	
+	
+		$('table.sortable').each(function() {
+		var currentPage = 0;
+		var numPerPage = 10;
+		var $table = $(this);
+		$table.bind('repaginate', function() {
+			$table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+		});
+		$table.trigger('repaginate');
+		var numRows = $table.find('tbody tr').length;
+		var numPages = Math.ceil(numRows / numPerPage);
+		var $pager = $('<div class="pager"></div>');
+		for (var page = 0; page < numPages; page++) {
+			$('<span class="page-number"></span>').text(page + 1).bind('click', {
+				newPage: page
+			}, function(event) {
+				currentPage = event.data['newPage'];
+				$table.trigger('repaginate');
+				$(this).addClass('active').siblings().removeClass('active');
+			}).appendTo($pager).addClass('clickable');
+		}
+		$pager.insertBefore($table).find('span.page-number:first').addClass('active');
+		});
+		
+	});
+	
+	
+	function vymazat_uzivatela(id, element)
+	{
+		r = confirm("Naozaj si prajete vymazať užívateľa ?");
+		
+		
+		if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "rezervacia_ajax.php",
+				  data: "vymazat_uzivatel_id="+id,
+				  success : function() {
+						y = element.parentNode.parentNode;
+						y.parentNode.removeChild(y);
+					}
+				});
+		}
+	}
+	
+	</script>
+    <div class = "formular"> 
+    <h1>Prehľad užívateľov</h1>
 
-    <br>
-    <table id = "tabulka_admin">
+    <table id = "tabulka_admin" class = "sortable">
         <thead>
             <tr>
-                <th>ID</th><th>Meno</th><th>Priezvisko</th><th>Nick</th><th>E-mail</th><th>Telefon</th><th>Podrobnosti</th><th>Vymazat</th>
+                <th>ID</th><th>Meno</th><th>Priezvisko</th><th>Nick</th><th>E-mail</th><th class="sorttable_nosort">Tel. číslo</th><th class="sorttable_nosort" colspan = "2">Akcia</th>
             </tr>
         </thead>
         <tbody>
@@ -20,17 +68,17 @@
                 <td>{meno}</td>
                 <td>{priezvisko}</td>
                 <td>{nick}</td>
-		<td>{e_mail}</td>
-		<td>{tel_cislo}</td>
-		<td>
-			<a href = "index.php?id=uzivatelia&cmd=podrobnosti_uzivatela&uzivatel_id={id}">Podrobnosti</a>
-		</td>
-                <td>
-			<a href = "index.php?id=uzivatelia&cmd=vymazat_uzivatela_proc&uzivatel_id={id}">Vymazat</a>
-                </td>
+				<td>{e_mail}</td>
+				<td>{tel_cislo}</td>
+				<td>
+					<a id "rezervacie" href = "index.php?id=uzivatelia&cmd=podrobnosti_uzivatela&uzivatel_id={id}">Rezervácie</a>
+				</td>
+				<td>
+					<a id = "vymazat" onclick = "vymazat_uzivatela({id},this)">Vymazať</a>
+				</td>
             </tr>
             <!-- END riadok -->
         </tbody>
     </table>
-    
+    </div>
 </div>

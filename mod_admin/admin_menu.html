@@ -10,19 +10,19 @@
         $("#tabulka_admin").tableDnD();
     });
     </script>
-    <h1>Administracia menu</h1>
-
-    <a href = "index.php?id=admin&cmd=nova_polozka">Nova Polozka</a>
-    <br>
-    <br>
-    <br>
-
+	<div class = "formular">
+    <h1>Administrácia menu</h1>
+	
+    <a  id = "button" href = "index.php?id=admin&cmd=nova_polozka">Nová položka</a> 
+	<br>
+	<br>
+	
 
     <form id = "form" method = "post" action = "index.php?id=admin&cmd=menu_proc">
     <table id = "tabulka_admin">
         <thead>
             <tr>
-                <th>Nazov</th><th>Modul</th><th>Subor</th><th>Administrator</th><th>Uzivatel</th><th>Neprihlaseny</th>
+                <th>Názov položky</th><th>Modul</th><th>Súbor</th><th>Administrátor</th><th>Užívateľ</th><th>Neprihlásený</th><th>Akcia</th>
             </tr>
         </thead>
         <tbody>
@@ -38,12 +38,17 @@
                 <!-- END grupa -->
 
                 <td>
-                <a href = "index.php?id=admin&cmd=uprav_polozku&idcko={id}">Upravit</a>
+                <a href = "index.php?id=admin&cmd=uprav_polozku&idcko={id}">Upraviť</a>
                 </td>
             </tr>
             <!-- END riadok -->
         </tbody>
     </table>
-    <input type = "submit" class = "btn" name = "ulozit" value = "Ulozit">
-    </form>
+	<br>
+	<span class = "popis">
+		<input type = "submit" id = "button" name = "ulozit" value = "Uložiť">
+    </span>
+	</form>
+	</div>
+	
 </div>

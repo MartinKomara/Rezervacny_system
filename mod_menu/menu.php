@@ -29,10 +29,11 @@ foreach($result as $value)
 	$tpl->setCurrentBlock('riadok');
 	$tpl->setVariable('id',$value['menu_id']);
 	$tpl->setVariable('nazov',$value['nazov']);
+	
 	if ($zalozka == $value['modul'].$value['subor'])
-		$tpl->setVariable('oznacene',"oznacene");
+		$tpl->setVariable('oznacene',"class = 'active'");
 	else
-		$tpl->setVariable('oznacene',"neoznacene");
+		$tpl->setVariable('oznacene',"");
 	$tpl->setVariable('modul',$value['modul']);
 	$tpl->setVariable('subor',$value['subor']);
 	$tpl->parseCurrentBlock('riadok');

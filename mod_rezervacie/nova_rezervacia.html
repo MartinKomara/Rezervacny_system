@@ -1,34 +1,234 @@
 <div id = "content">
-    
-<!-- BEGIN riadok -->
-	<a href = "index.php?id=rezervacie&cmd=nova_rezervacia&stredisko_id={stredisko_id}">{nazov_strediska}</a>
-<!-- END riadok -->
-   
+<script>
+  
+  var sport_id;  
+  var uzivatel_id;
+  
+  function freeze()
+  {
+	$("#loading").show();
+	var freezeDiv = document.createElement("div");
+	freezeDiv.id = "freezeDiv";
+	freezeDiv.style.cssText = "position:fixed; top:0; right:0; width:" + screen.width + "px; height:" + screen.height + "px; background-color: #000000; opacity:0.3; filter:alpha(opacity=50)";    
+	document.getElementsByTagName("body")[0].appendChild(freezeDiv );
+  }
+  
+  function vypocitaj_sumu()
+  {
+  
+	var table = document.getElementById('tabulka_sumar');
+		var suma = 0;		
+		var rows = document.getElementById('tabulka_sumar').getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
+		if (rows == 0)
+			{
+				$("#rezervacia").css("display","none");
+				return;
+			}
+		for (var i = 1; i <= rows; i++) {
+			bunka = table.rows[i].cells[4].innerHTML;
+			hodnota = parseInt(bunka,10);
+			suma += hodnota;
+		}
+		
+		posledny_riadok = document.getElementById("tabulka_sumar").rows.length;
+		posledny_riadok--;
+		if (posledny_riadok != 1)
+			document.getElementById("tabulka_sumar").deleteRow(posledny_riadok);
+		$("#tabulka_sumar > tfoot").append("<tr><td colspan = '4'>Suma</td><td>"+suma+" €</td><td> &nbsp;</td></tr>");
+  
+  }
+  
+  
+  function nacitaj_sport(id, u)
+  {
+	
+	$('#kalendar').datepicker().datepicker('setDate',new Date());
+	/*
+	if (uzivatel_id == -1)
+		idcko = "";
+	else
+		idcko = uzivatel_id;*/
+		
+	uzivatel_id = u;	
+		
+	sport_id = id;
+	$("#kalendar").show(1000);
+	$("#rozvrh").load("kalendar_ajax.php", { datum: "dnes", sport: sport_id, uzivatel : u } );
+	$("#gallery").load("galeria_ajax.php", { sport: sport_id } );	
+	$('#rozvrh').fadeIn();  
+	$(".legenda").show(1000);
+  }  
+  
+  $(function() {
+     $('#kalendar').datepicker( {
+        onSelect: function(date) {
+            $("#rozvrh").load("kalendar_ajax.php", { datum: date, sport: sport_id, uzivatel : uzivatel_id });
+			$('#rozvrh').show();
+			$("#datum").text(date);
+			vypocitaj_sumu();
+        }
+    });
+	
+  });
+  
+  function vymaz_rezervaciu(id, uzivatel_id)
+  {		
+	
+	freeze();
+	var n=id.split("|");
+		sport = n[0];
+		sportovisko_id = n[1];
+		datum = n[2];
+		zaciatok = n[3];
+		dlzka = n[4];
+		cena = n[5];
+	el = document.getElementsByClassName(id);
+	var element = el.item(0);
+	element.parentNode.removeChild(element);
+	
+	$.ajax({			  
+			  type: "GET",
+			  url: "tmp_rezervacia_ajax.php",
+			  data: "vymaz=1&sport="+sport+"&sportovisko_id="+sportovisko_id+"&datum="+datum+"&zaciatok="+zaciatok+"&dlzka="+dlzka+"&cena="+cena+"&uzivatel="+uzivatel_id,
+			  success : function() {		  
+						var element = document.getElementById(id);
+						if (element != null)
+						{
+							element.style.backgroundColor = "white";							
+							$(element).attr('class', 'volna_rezervacia');	
+							element.onclick = function() { pridaj_rezervaciu(this.id, this); };
+						}
+						vypocitaj_sumu();
+						$("#loading").hide();
+						$("#freezeDiv").remove();
+				}
+			});
+	
+	
+  }
+  
+
+		
+	function pridaj_rezervaciu(data, element, uzivatel_id)
+	{		
+		freeze();
+		$(element).css("background-color","green");	
+		$(element).attr('class', 'vybrana');
+		$(element).attr('id', data);
+		$(element).removeAttr("onclick");
+		$("#rezervacia").css("display","inline");
+		element.onclick = function() { vymaz_rezervaciu(this.id); };
+		
+		
+		var n=data.split("|");
+		sport = n[0];
+		sportovisko_id = n[1];
+		datum = n[2];
+		zaciatok = n[3];
+		dlzka = n[4];
+		cena = n[5];
+		var t = document.getElementById("tabulka_rezervacie");
+		var nazov = $(t.rows[sportovisko_id].cells[0]).text(); 				
+		
+		var el = "<tr class = '"+data+"'><input type = 'hidden' name = sport_id[] value = "+sport+">"+
+		" <input type = 'hidden' name = sportovisko_id[] value = "+sportovisko_id+"><td>"+nazov+"</td>"+
+		"<td><input type = 'hidden' name = datum[] value = "+datum+">"+datum+"</td>"+
+		"<td><input type = 'hidden' name = zaciatok[] value = "+zaciatok+">"+zaciatok+"</td>"+
+		"<td><input type = 'hidden' name = dlzka[] value = "+dlzka+">"+dlzka+"</td><td>"+cena+" €</td>"+
+		"<td><img src = 'images/cancel.jpg' class = 'cancel' onclick = vymaz_rezervaciu('"+data+"'); /></td>"+
+		"<input type = 'hidden' name = cena[] value = "+cena+"></tr>";
+		
+		$("#tabulka_sumar > tbody").append(el);
+		
+		
+		
+		$.ajax({			  
+			  type: "GET",
+			  url: "tmp_rezervacia_ajax.php",
+			  data: "pridaj=1&sport="+sport+"&sportovisko_id="+sportovisko_id+"&datum="+datum+"&zaciatok="+zaciatok+"&dlzka="+dlzka+"&cena="+cena+"&uzivatel_id="+uzivatel_id,
+			  success : function() {
+					$(".vybrana").each(function() {
+						$(this).css("background-color","green");						
+						});				
+						
+						vypocitaj_sumu();
+						$("#loading").hide();
+						$("#freezeDiv").remove();
+										
+				}
+			});
+		
+	}
+		
+  </script>
+
+<div id="loading" style="display: none">
+<img src = "images/ajax-loader.gif"/>
+</div>
+
+<div class = "formular">
+		
+	<div id = "menu_sportu">
+		<!-- BEGIN riadok -->	
+		<a onclick= "nacitaj_sport({sport_id}, {uzivatel_id})">
+			<span class = "box">	
+				<div class = "i">
+				{nazov_sportu}
+				</div>
+			</span>
+		</a>
+		{medzera}	
+		<!-- END riadok -->
+	</div>
+
+	<input type = "hidden" name = "sport_id" class = "sport_id" id = "sport_id" value ="">
+	<div class = "clear"></div><br><br>
+	
+	
+	<div id = "rozvrh" style = "display:none"></div> 	
+	<div class = "clear"></div><br>
+	<div id = "kalendar" style = "display:none"></div>
+	
+
+	<div id = "rezervacia" style = "display:none">
+		<form method = "post" action = "index.php?id=rezervacie&cmd=nova_rezervacia_proc">
+		<input type = "hidden" name = "uzivatel_id" value = "{uzivatel}">
+		
+		
+		<table class = "tabulka_sumar" id = "tabulka_sumar">
+			<thead>
+				<th>Nazov</th><th>Datum</th><th>Zaciatok</th><th>Trvanie</th><th>Cena</th><th>Vymazat</th>
+			</thead>
+			<tbody>
+			</tbody>
+			<tfoot>
+			</tfoot>
+		</table><br><br>
+		<input type = "submit" id = "button" name = "rezervovat" value = "Rezervovat">
+		</form>
+	</div>
+
+<div class = 'legenda' style ="display:none">
+	<fieldset>
+	<legend>Legenda</legend>
+		<table>
+			<tr><td class = 'ikona moja'>&nbsp;</td><td>&nbsp; - Moje rezervácie</td></tr>
+			<tr><td class = 'ikona obsadena'>&nbsp;</td><td>&nbsp; - Obsadené rezervácie</td></tr>
+			<tr><td class = 'ikona volna'>&nbsp;</td><td>&nbsp; - Voľné</td></tr>
+		</table>
+	</fieldset>
+</div>
+
+<div class = 'clear'></div><br><br>
+
+<div id='gallery'>
+
+</div>
+	
 
 
-<table border ="1">
-    <tr>
-        <td>Nazov sportoviska</td>
-        <!-- BEGIN casova_os -->
-        <td>
-            {cas}
-        </td>
-        <!-- END casova_os -->
-    </tr>
-    <!-- BEGIN sportovisko -->
-    <tr>
-        <td>
-           {nazov_sportoviska}
-        </td>
-        <!-- BEGIN bunka -->
-            <td>{hodnota}</td>
-        <!-- END bunka -->
-    </tr>
-    <!-- END sportovisko -->
-    
-</table>
+	
 
-
-
-    
+	
+</div>    
 </div>

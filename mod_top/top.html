@@ -1,40 +1,41 @@
-﻿
+
 <div id = "top">
 
-<div id = "prihlasenie">
+
 
 <!-- BEGIN prihlasenie -->
-<form method = "post" action = "index.php?id=login&cmd=prihlasenie_proc">
-	<span class = "login">
-			Meno
-			<input type = "text" name = "prihlasovacie_meno">
-	</span>
-	<span class = "login">
-			Heslo
-			<input type = "password" name = "prihlasovacie_heslo">
-	</span>
-		<input class = "btn2" type = "submit" name = "prihlasit" value = "Prihlasit">
-	
-</form>
-
-<!-- END prihlasenie -->
-<!-- BEGIN odhlasenie -->
-<form method = "post" action = "index.php?id=login&cmd=odhlasenie_proc">
-<input type = "submit" name = "odhlasit" value = "odhlasit">
-</form>
-<!-- END odhlasenie -->
-<a href = "index.php?id=login&cmd=registracia">Registrovat</a>
-
-
-
-
-<!-- BEGIN neznamy_uzivatel -->
-	Zle zadany uzivatel
-<!-- END neznamy_uzivatel -->
-<!-- BEGIN nezname_heslo -->
-	Zle zadane heslo
-<!-- END nezname_heslo -->
+<div id = "prihlasenie">
+	<form method = "post" action = "index.php?id=login&cmd=prihlasenie_proc">
+	Meno
+		<input type = "text" name = "prihlasovacie_meno">
+		<a href = "index.php?id=login&cmd=registracia">Vytvoriť konto</a>
+		<div class = "clear"></div>
+	Heslo
+		<input type = "password" name = "prihlasovacie_heslo">
+		<input id = "button" type = "submit" name = "prihlasit" value = "Prihlásiť">		
+	</form>
+	<div id = "upozornenie">
+	<!-- BEGIN neznamy_uzivatel -->
+		Nesprávne prihlasovacie meno
+	<!-- END neznamy_uzivatel -->
+	<!-- BEGIN nezname_heslo -->
+		Nesprávne heslo
+	<!-- END nezname_heslo -->
+	</div>
 </div>
+<!-- END prihlasenie -->
+
+
+<!-- BEGIN odhlasenie -->
+<div id = "odhlasenie">
+<form method = "post" action = "index.php?id=login&cmd=odhlasenie_proc">
+<input type = "submit" name = "odhlasit" id = "button" value = "Odhlásiť">
+</form>
+<button id = "button" onclick = "location.href='index.php?id=profil&cmd=ucet'" style = "width:96px">Profil</button>
+</div>
+<!-- END odhlasenie -->
+
+
 
 	
 

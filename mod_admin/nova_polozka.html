@@ -1,26 +1,29 @@
 <div id = "content">
+<div class = "formular">
+	<h1>Administrácia menu</h1>
 
-<h1>Administracia menu</h1>
+	<form id = "form" method = "post" action = "index.php?id=admin&cmd=nova_polozka_proc">
 
-<a href = "index.php?id=admin&cmd=admin_menu">Administracia poloziek</a>
-<form id = "form" method = "post" action = "index.php?id=admin&cmd=nova_polozka_proc">
-
-<p>
-	<label>Nazov</label>
-	<input type = "text" name = "nazov">
-</p>
-<p>
-	<label>Modul</label>
-	<input type = "text" name = "modul">
-</p>
-<p>
-	<label>Subor</label>
-	<input type = "text" name = "subor">
-</p>
-<p>
-	<label>&nbsp;</label>
-	<input type = "submit" name = "ulozit" value = "Ulozit">
-</p>
-</form>
-
+	<span class = "popis">
+		<label>Názov</label>
+		<input type = "text" name = "nazov" title = "Názov položky menu">
+	</span>
+	<div class = "clear"></div><br>
+	<span class = "popis">
+		<label>Modul</label>
+		<input type = "text" name = "modul" title = "Názov modulu súboru">
+	</span>
+	<div class = "clear"></div><br>
+	<span class = "popis">
+		<label>Súbor</label>
+		<input type = "text" name = "subor" title = "Názov súboru">
+	</span>
+	<div class = "clear"></div><br>
+	<span class = "popis">
+		<label>&nbsp;</label>
+		<input type = "submit" name = "ulozit" id = "button" value = "Uložiť">
+		<input type="button" id = "button" onClick="location.href='index.php?id=admin&cmd=admin_menu'" value='Späť'>
+	</span>
+	</form>
+</div>
 </div>

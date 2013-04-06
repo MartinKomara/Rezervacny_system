@@ -1,37 +1,107 @@
 <div id = "content">
-    <script type = "text/javascript">
+	<script src="js/sorttable.js"></script>
+     <script type = "text/javascript">
     function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
     function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
-    </script>
-     
-    <h1>Prehlad rezervacii</h1>
-    <h3>{uzivatel_meno}</h3>
+	
 
-    <br>
-    <table id = "tabulka_admin">
+	function potvrd_rezervaciu(id, element)
+	{
+		if (element.parentNode.className == "potvrdena")
+			return;	
+		r = confirm("Naozaj si prajete potvrdiť rezerváciu ?");
+		if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "rezervacia_ajax.php",
+				  data: "rezervacia_id="+id,
+				  success : function() {
+					$("#rezervacia_potvrdenie_"+id).attr('sorttable_customkey','1');
+					$("#rezervacia_potvrdenie_"+id).css("background-color","green");
+					}
+				});
+		}
+	}
+	
+	
+	$(document).ready(function() {	
+	
+		$('table.sortable').each(function() {
+		var currentPage = 0;
+		var numPerPage = 10;
+		var $table = $(this);
+		$table.bind('repaginate', function() {
+			$table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+		});
+		$table.trigger('repaginate');
+		var numRows = $table.find('tbody tr').length;
+		var numPages = Math.ceil(numRows / numPerPage);
+		var $pager = $('<div class="pager"></div>');
+		for (var page = 0; page < numPages; page++) {
+			$('<span class="page-number"></span>').text(page + 1).bind('click', {
+				newPage: page
+			}, function(event) {
+				currentPage = event.data['newPage'];
+				$table.trigger('repaginate');
+				$(this).addClass('active').siblings().removeClass('active');
+			}).appendTo($pager).addClass('clickable');
+		}
+		$pager.insertBefore($table).find('span.page-number:first').addClass('active');
+		});
+		
+	});	
+	
+	function vymazat_rezervaciu(id, element)
+	{
+		r = confirm("Naozaj si prajete vymazať rezerváciu ?");
+		
+		
+		if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "rezervacia_ajax.php",
+				  data: "vymazat_rezervaciu_id="+id,
+				  success : function() {
+						y = element.parentNode.parentNode;
+						y.parentNode.removeChild(y);
+					}
+				});
+		}
+	}
+	
+    </script>
+    <div class = "formular">
+	<h1>Prehľad rezervácií</h1>
+	<h2>{meno_uzivatela}</h2>	
+    <table id = "tabulka_admin" class = "sortable">
         <thead>
             <tr>
-                <th>ID</th><th>Datum</th><th>Cas</th><th>Sportovisko</th><th>Relizovane</th><th>Podrobnosti</th><th>&nbsp;</th>
+                <th>ID</th><th>Dátum rezervácie</th><th>Čas</th><th>Trvanie</th><th>Cena</th><th>Názov športoviska</th><th>Dátum pridania</th><th>Potvrdenie</th><th class="sorttable_nosort">Akcia</th>
             </tr>
         </thead>
         <tbody>
             <!-- BEGIN riadok -->
-            <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
-                <td>{id}</td>
+            <tr id = "{id}" onmouseover="zafarbi(this);" onmouseout="odfarbi(this);">
+                <td>{rezervacia_id}</td>
                 <td>{datum}</td>
                 <td>{cas}</td>
-				<td>{sportovisko}</td>
-				<td>{realizovane}</td>
+				<td>{dlzka}</td>
+				<td>{cena} €</td>
+				<td>{nazov_sportoviska}</td>
+				<td>{datum_pridania}</td>
+				<td id = "rezervacia_potvrdenie_{rezervacia_id}" {potvrdenie}>
+					<a onclick = "potvrd_rezervaciu({rezervacia_id},this);" style = "display:block">&nbsp;</a></td>
 				<td>
-					<a href = "index.php?id=rezervacie&cmd=podrobnosti_rezervacie&idcko={id}">Podrobnosti</a>
-				</td>
-				<td>
-					<a href = "index.php?id=rezervacie&cmd=vymazat_rezervaciu&idcko={id}">Vymazat</a>
+					<a id = "vymazat" onclick = "vymazat_rezervaciu({rezervacia_id},this)">Vymazať</a>
 				</td>
             </tr>
             <!-- END riadok -->
         </tbody>
     </table>
-   
-    
+    <input type="button" id = "button" onClick="history.go(-1);return true;" value='Späť'>
+	<input type="button" id = "button" onClick="location.href='index.php?id=rezervacie&cmd=nova_rezervacia&uzivatel_id={uzivatel_id}'" value='Nová rezervácia'>
+
+	</div>
 </div>

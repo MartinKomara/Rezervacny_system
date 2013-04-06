@@ -10,7 +10,7 @@ $tpl->setCurrentBlock('form');
 	$tpl->setVariable('nazov',$result['nazov']);
 	$tpl->setVariable('modul',$result['modul']);
 	$tpl->setVariable('subor',$result['subor']);
-	$tpl->setVariable('id',$result['menu_id']);
+	$tpl->setVariable('id',$result['id']);
 $tpl->parseCurrentBlock('form');
 
 

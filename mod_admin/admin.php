@@ -21,13 +21,15 @@ function vytried($str)
 	
 }
 
+$skupiny = array("Administrátor","Užívateľ","Neprihlásený");
+$ind = 0;
 
-foreach($groups as $group)
+foreach($skupiny as $skupina)
 	{
 		$tpl->setCurrentBlock('hlavicka');
-		$tpl->setVariable('nazov_skupiny',$group['nazov']);
+		$tpl->setVariable('nazov_skupiny',$skupina);
 		$tpl->parseCurrentBlock('hlavicka');
-	
+		
 	}
 
 if ($handle = opendir('.')) {
@@ -36,11 +38,10 @@ if ($handle = opendir('.')) {
 			array_push($moduly,$modul);
     }
 	
-	
-	
 	foreach($moduly as $modul)
 	{
 	$subory = scandir($modul);
+		
 		
 	foreach($subory as $subor)	
 	{				

@@ -9,7 +9,7 @@ if (isset($_POST['ulozit'])  && !empty($_POST['ulozit']))
 			$neprihlaseny = $_POST['neprihlaseny'];
 		
 		
-		$db->query("delete from menu_to_groups");
+		$db->query("delete from menu_skupiny");
 		
 		
 		

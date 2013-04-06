@@ -1,0 +1,294 @@
+<div id = "content">
+<script src='js/jquery.MultiFile.js' type="text/javascript" language="javascript"></script>
+<script>
+  
+function zobraz()
+{
+	var detail = document.getElementById('detail');
+	if (detail.checked == true)
+		document.getElementById("podrobnosti").style.display="inline";
+	else
+		document.getElementById("podrobnosti").style.display="none";
+}
+	
+function vypln_polia(cena)
+{
+    $(".cena_detail").each(function() {
+        $(this).val(cena);
+    });
+}
+
+function vypln_intervaly(interval)
+{
+    $(".interval_detail").each(function() {
+        $(this).val(interval);
+    });
+}
+
+$(function() {
+	$('.cas').each(function() {
+        $(this).timePicker();
+    });
+	
+	$('#gallery a').lightBox();
+});
+
+function vymazat_fotku(id, element)
+	{
+		r = confirm("Naozaj si prajete vymazať fotografiu ?");
+		
+		
+		if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "sport_ajax.php",
+				  data: "vymazat_fotku_id="+id,
+				  success : function() {
+						y = element.parentNode;
+						y.parentNode.removeChild(y);
+					}
+				});
+		}
+	}
+	
+function vymazat_sport(id)
+	{
+		r = confirm("Naozaj si prajete vymazať šport ?");
+		if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "sport_ajax.php",
+				  data: "vymazat_sport_id="+id,
+				  success : function() {
+						/* presmerovat sa na prehlad stredisk  */ 
+						window.location = "index.php?id=sport&cmd=prehlad_sportov";
+					}
+				});
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+function vymaz_zatvorenie(id, riadok)
+{	
+	r = confirm("Naozaj si zrušiť zablokovanie športu ?");
+		
+		
+	if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "sport_ajax.php",
+				  data: "vymazat_zablokovanie="+id,
+				  success : function() {
+							element = riadok.parentNode;
+							element.parentNode.removeChild(element);
+					}
+				});
+		}	
+}
+
+function vymaz_riadok(riadok)
+{
+	element = riadok.parentNode;
+	element.parentNode.removeChild(element);	
+}
+
+function pridaj_zatvorenie()
+{
+	html = "<span class = 'popis'><input type = 'text' class = 'datum' name = 'zatvorenie_zaciatok[]'>"+
+		"<input type = 'text' class = 'datum' name = 'zatvorenie_koniec[]'><img src = 'images/cancel.jpg' id = 'vymazat' width = '15px' height = '15px' onclick = 'vymaz_riadok(this)'><br></span>";
+	$("#zatvorenie").append(html);
+	
+	$('.datum').each(function() {
+        $(this).datepicker({
+			minDate: +1,
+			maxDate: null		
+		});
+    });	
+}
+
+
+
+    $(function() { 
+        $("#sport_form").validity(function() {
+          
+		$("#nazov_sportu")                         
+			.require();                 		
+		$("#nazov_sportoviska")                          
+			.require();        
+		$("#pocet_sportovisk")                           
+			.require()
+			.match('integer');
+        });
+    });
+	
+	
+	
+	function over_cas()
+	{
+		$(".error2").each(function () {
+			$(this).remove(); });
+	    vysledok = true;
+	
+		for (var i = 0; i < 7; i++)
+		{
+		
+			arg1 = $("#otvorenie_"+i).val();
+			arg2 = $("#zatvorenie_"+i).val();
+
+			
+			if ((arg1 == "") && (arg2 == ""))
+				continue;
+			
+				
+			if ((arg1 != "") && (arg2 == ""))
+			{
+				$('<label class="error2">Chýba čas zatvorenia.</label>').insertAfter("#zatvorenie_"+i);
+				vysledok = false;	 
+			}
+			else if ((arg1 == "") && (arg2 != ""))
+			{
+				$('<label class="error2">Chýba čas otvorenia.</label>').insertAfter("#zatvorenie_"+i);
+				vysledok = false;		  
+			}			
+			else if (arg1 >= arg2)
+			{
+				$('<label class="error2">Nesprávne zadaný čas.</label>').insertAfter($("#zatvorenie_"+i));	 
+				vysledok = false;	
+			}
+			
+				
+		}
+		return vysledok;
+				
+	}
+</script>
+
+
+<form method = "post" id = "sport_form" onsubmit = "return over_cas();" class ="formular" action = "index.php?id=sport&cmd=uprav_sport_proc&sport_id={sport_id}" enctype="multipart/form-data">
+	<h1>Podrobnosti športu</h1>
+	
+    <fieldset>
+		<legend>Základné informácie</legend>
+		<span class ="popis">
+			<label>Názov športu</label>
+			<div class = "clear"></div>
+			<input type = "text" id = "nazov_sportu" name = "nazov_sportu" value = "{nazov_sportu}" title = "Názov športu">
+		</span>	
+		<div class = "clear"></div><br>
+		<span class ="popis">
+			<label>Názov športoviska</label>
+			<div class = "clear"></div>
+			<input type = "text" id = "nazov_sportoviska" name = "nazov_sportoviska" value = "{nazov_sportoviska}" title = "Názov športoviska">
+		</span>
+		<div class = "clear"></div><br>
+		<span class ="popis">
+			<label>Počet športovísk</label>
+			<div class = "clear"></div>
+			<input type = "text" id = "pocet_sportovisk" name = "pocet_sportovisk" value = "{pocet_sportovisk}" title = "Počet športovísk">
+		</span>
+    </fieldset>
+	<div class = "clear"></div><br>
+    <fieldset>
+		<legend>Otváracie hodiny</legend>
+		<table>
+		<!-- BEGIN hod_den -->
+			<tr>
+				<td>
+					{nazov_dna}
+				</td>
+				<td>
+					<input type = "text" id = "otvorenie_{tyzden_oznacenie}" class = "cas" name = "hodiny_{tyzden_oznacenie}[]" size = "5" value ="{zaciatok}" title = "Otvorenie športoviska">
+				</td>
+				<td>
+					<input type = "text" id = "zatvorenie_{tyzden_oznacenie}" class = "cas" name = "hodiny_{tyzden_oznacenie}[]" size = "5" value ="{koniec}" title = "Zatvorenie športoviska">
+				</td>
+			</tr>
+		<!-- END hod_den -->
+		</table>	
+    </fieldset>
+	<div class = "clear"></div><br>
+    <fieldset>
+		<legend>Časový interval</legend>
+		<p>
+			<label>Časový interval</label>
+			<select name = "interval" onChange ="vypln_intervaly(this.value)">
+				<option value = "30" {30}>30</option>
+				<option value = "45" {45}>45</option>
+				<option value = "60" {60}>60</option>
+				<option value = "75" {75}>75</option>
+				<option value = "90" {90}>90</option>
+			</select>
+			<input type = "checkbox" id = "detail" name = "detail" value = "Detail" onClick = "zobraz()" checked>Detail
+		</p>
+			<p>
+			<label>Cena</label>
+			<input type = "text" name = "cena" onChange ="vypln_polia(this.value)" value ="{jednotna_cena}" title = "Jednotná cena pre každý deň">
+		</p>
+		<div id = "podrobnosti" style ="display:inline">
+		<table>
+			<!-- BEGIN den -->
+			<tr>
+				<td>
+					{nazov_dna}
+				</td>
+				<td>
+					<select name = "{nazov_dna}" class ="interval_detail">
+						<!-- BEGIN interval -->
+							<option value = "{hodnota}" {oznaceny_interval}>{hodnota}</option>
+						<!-- END interval -->
+					</select>
+				</td>
+				<td>
+						<input type = "text" name ="cena_{nazov_dna}" class ="cena_detail" value ="{cena}" title ="Cena intervalu - {nazov_dna}"> 
+				</td>
+			</tr>
+			<!-- END den -->
+		</table>
+		</div>	
+    </fieldset>	
+	<div class = "clear"></div><br>	
+	<fieldset>
+		<legend>Fotogaléria</legend>
+		<input type="file" name = "file[]" class="multi" accept="gif|jpg|png" maxlength="30"/>	
+		<div id = "gallery">
+			<ul>
+				<!-- BEGIN fotka -->				
+				<li>
+					<a href="images/sportovisko/{riadok}">
+					<img src="images/sportovisko/{riadok}"/ width = "72" height = "72"></a>	
+					<span id = "vymazat" onclick = "vymazat_fotku({fotka_id},this)">Vymazať</span>							
+				</li>						
+				<div class = "clear"></div>
+				<!-- END fotka -->
+			</ul>
+		</div>
+	</fieldset>
+	<div class = "clear"></div><br>
+	<fieldset>
+		<legend>Zablokovanie športovísk</legend>
+		<a id = "pridaj_zatvorenie" onclick = "pridaj_zatvorenie()">Pridaj zatvorenie</a>
+		<div class = "clear"></div>
+		<!-- BEGIN zatvorenie -->
+			<span class = 'popis'>
+				<input type = 'text' class = "datum" value = "{zaciatok}" disabled>
+				<input type = 'text' class = "datum" value = "{koniec}" disabled>
+				<img src = "images/cancel.jpg" id = "vymazat" width = "15px" height = "15px" onclick = "vymaz_zatvorenie({zatvorenie_id}, this)">	
+			<br>
+			</span>	
+		<!-- END zatvorenie -->		
+		<div id = "zatvorenie">
+			
+		</div>
+	</fieldset>
+	<div class = "clear"></div><br>
+	<input type="button" id = "button" onClick="location.href='index.php?id=sport&cmd=prehlad_sportov'" value='Späť'>
+	<input type = "submit" name = "ulozit" id = "button" value = "Uložiť">
+	<input type = "submit" onclick = "return vymazat_sport({sport_id})" name = "vymazat" id = "button" value = "Vymazať">
+</form>
+</div>

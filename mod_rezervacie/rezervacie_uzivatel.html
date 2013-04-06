@@ -1,33 +1,91 @@
 <div id = "content">
+	<script src="js/sorttable.js"></script>
     <script type = "text/javascript">
     function zafarbi(riadok) { riadok.style.backgroundColor = "#ffffff"; }
     function odfarbi(riadok) { riadok.style.backgroundColor = ""; }
+	
+	$(document).ready(function() {	
+	
+		$('table.sortable').each(function() {
+		var currentPage = 0;
+		var numPerPage = 10;
+		var $table = $(this);
+		$table.bind('repaginate', function() {
+			$table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+		});
+		$table.trigger('repaginate');
+		var numRows = $table.find('tbody tr').length;
+		var numPages = Math.ceil(numRows / numPerPage);
+		var $pager = $('<div class="pager"></div>');
+		for (var page = 0; page < numPages; page++) {
+			$('<span class="page-number"></span>').text(page + 1).bind('click', {
+				newPage: page
+			}, function(event) {
+				currentPage = event.data['newPage'];
+				$table.trigger('repaginate');
+				$(this).addClass('active').siblings().removeClass('active');
+			}).appendTo($pager).addClass('clickable');
+		}
+		$pager.insertBefore($table).find('span.page-number:first').addClass('active');
+		});
+		
+		
+		
+	});	
+	
+	
+	function vymazat_rezervaciu(id, element)
+	{
+		r = confirm("Naozaj si prajete vymazať rezerváciu ?");
+		
+		
+		if (r == true)
+		{
+			 $.ajax({
+				  type: "GET",
+				  url: "rezervacia_ajax.php",
+				  data: "vymazat_rezervaciu_id="+id,
+				  success : function() {
+						y = element.parentNode.parentNode;
+						y.parentNode.removeChild(y);
+					}
+				});
+		}
+	}
+	
+
     </script>
      
-    <h1>Prehlad rezervacii</h1>
-
-    <br>
-    <table id = "tabulka_admin">
-        <thead>
+<div class = "formular">
+<form method = "post" action = "index.php?id=rezervacie&cmd=export_proc">
+    <h1>Prehľad rezervácií</h1>
+	<table id = "tabulka_uzivatel" class = "sortable">
+		<thead>
             <tr>
-                <th>ID</th><th>Datum</th><th>Cas</th><th>Sportovisko</th><th>Potvrdena</th><th>Vymazat</th>
+                <th>ID</th><th>Dátum</th><th>Čas</th><th>Trvanie</th><th>Cena</th><th>Názov športoviska</th><th filter="false">Potvrdenie</th><th class="sorttable_nosort">Akcia</th><th class="sorttable_nosort">Export</th>
             </tr>
         </thead>
         <tbody>
             <!-- BEGIN riadok -->
             <tr id = "{id}" onmouseover="zafarbi(this)" onmouseout="odfarbi(this)">
-                <td>{id}</td>
+                <td>{rezervacia_id}</td>
                 <td>{datum}</td>
                 <td>{cas}</td>
-				<td>{sportovisko}</td>
-				<td>{potvrdena}</td>
+				<td>{dlzka}</td>
+				<td>{cena} €</td>
+				<td>{nazov_sportoviska}</td>
+				<td {potvrdenie}></td>
 				<td>
-					<a href = "index.php?id=rezervacie&cmd=vymazat_rezervaciu&idcko={id}">Vymazat</a>
+					<a id = "vymazat" onclick = "vymazat_rezervaciu({rezervacia_id},this)">Vymazať</a>
+				</td>
+				<td>
+					<input type = "checkbox" name = "export[{rezervacia_id}]">
 				</td>
             </tr>
             <!-- END riadok -->
         </tbody>
     </table>
-   
-    
+	<input type="submit" id = "button" name = "exportovat" value='Exportovať'>	
+</form>	
+</div>
 </div>

@@ -16,7 +16,10 @@ $db = new db($db_con);
 include 'classes/Crypto.class.php';
 include 'classes/Uzivatel.class.php';
 include 'classes/Menu.class.php';
-include 'classes/Stredisko.class.php';
+include 'classes/Sport.class.php';
+include 'classes/Rezervacia.class.php';
+include 'classes/iCalcreator.class.php';
+
 
 
 
@@ -72,7 +75,6 @@ else
 }
 
 
-
 $pos = strpos($subor, "_proc");
 
 
@@ -81,14 +83,14 @@ if (($pristup == 1) || ($pos == true))
 	include($page);
     $tpl_main->setCurrentBlock('page_content');
     $tpl_main->setVariable('content', ob_get_contents());
-    $tpl_main->parseCurrentBlock();
+    $tpl_main->parseCurrentBlock('page_content');
     $tpl_main->hideBlock('access_denied');
 }
 else
 {
     $tpl_main->setCurrentBlock('page_content');
     $tpl_main->setVariable('content', ob_get_contents());
-    $tpl_main->parseCurrentBlock();
+    $tpl_main->parseCurrentBlock('page_content');
     $tpl_main->touchBlock('access_denied');
 }
 ob_end_clean();

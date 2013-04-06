@@ -1,37 +1,77 @@
+body
+{
+	background-repeat:repeat;
+	background: url('darkdenim3.png') repeat 0 0 #555;
+
+}
+
 #top
 {
 	border-top:1px solid black;
 	border-bottom:1px solid black;
 	font-size:11px;
 	background-color:#CFCFE3;
-	width: 980px;
-	height: 80px;
+	width: 1200px;
+	height: 150px;
 	margin: 0 auto;
-	padding: 4px 0 0 0;
-} 
-
-#menu
-{
-	border-top:1px solid black;
-	background-color:#8383A9;
-	width: 980px;
-	height: 32px;
-	margin: 0 auto;
-	margin-top: 10px;
-	font-size: 12px;
+	
 } 
 
 #content
 {
 	background-color:#C1C1E3;
 	border-bottom:1px solid black;
-	width: 980px;
+	width: 1200px;
+	min-height : 700px; 
 	margin: 0 auto;
+	padding-top:30px;
 } 
+
+#upozornenie
+{
+	color:red;
+	font-size:130%;
+}
 
 #prihlasenie
 {
 	float:right;
+	width: 328px; 
+	position:relative;
+	top:10px;
+	right:10px;
+	padding:10px;	
+	font-weight:bold;		
+
+	-webkit-box-shadow: 0px 0px 12px #0758AA; 
+	-moz-box-shadow: 0px 1px 6px #0758AA;
+
+
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 7px; 
+	border-radius: 7px;
+
+}
+
+#odhlasenie
+{
+	float:right;
+	width: 100px; 
+	position:relative;
+	top:10px;
+	right:10px;
+	bottom:10px;
+	padding:10px;	
+		
+	/* outer shadows  (note the rgba is red, green, blue, alpha) */
+	-webkit-box-shadow: 0px 0px 12px #0758AA; 
+	-moz-box-shadow: 0px 1px 6px #0758AA;
+
+	/* rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 7px; 
+	border-radius: 7px;
+
 }
 
 #podrobnosti
@@ -39,37 +79,84 @@
 	display : none;
 }
 
-.login 
+
+
+/* tabulka admin */	
+#tabulka_admin .nepotvrdena
 {
-	width:100px;
-	line-height:37px;
-	text-align:right;
-	margin-right:15px;
-	font-weight:bold;
-	color:#666;
+	cursor:pointer; 
 }
-	
+		
 #tabulka_admin 
+{ 	
+	width : 100%; 
+	text-align:center;
+	margin:auto;
+}
+
+#tabulka_admin thead 
+{
+	cursor:pointer;
+	/*border-bottom: 1px dashed blue; */
+	background:transparent url('blue.jpg') repeat-x top left;
+}
+
+#tabulka_admin td 
+{ 
+	padding : 5px;
+	border-bottom: 1px dashed #0758AA;
+}
+
+/* tabulka pristupov */
+#tabulka_pristupov 
 { 	
 	width : 100%; 
 	text-align:left	
 }
 	
-#tabulka_admin td 
+#tabulka_pristupov td 
 { 
 	padding : 5px; 
 }
 	
-#tabulka_admin td:first-child  
+#tabulka_pristupov td:first-child  
 {	
 	width : 200px;	
 }
-	
-legend 
+
+/* tabulka uzivatel */
+#tabulka_uzivatel th
 {
-	color:black;
-	font-weight:bold;
-	text-align:left;
+	cursor:pointer;	
+}
+
+#tabulka_uzivatel thead 
+{
+	/*border-bottom: 1px dashed blue; */
+	background:transparent url('blue.jpg') repeat-x top left;
+}
+	
+#tabulka_uzivatel 
+{ 	
+	width : 100%; 
+	text-align:center;
+	margin:auto;
+}
+	
+#tabulka_uzivatel td 
+{ 
+	padding : 5px; 
+	border-bottom: 1px dashed #0758AA;
+}
+	
+.potvrdena
+{
+	background-color:green;
+}
+
+.nepotvrdena
+{
+	background-color:red;
 }
 
 .header-img-header
@@ -80,14 +167,424 @@ legend
 
 .header-img-img
 {
-    display: inline-block; text-align: right; width: 49%;
+    display: inline-block; 
+	text-align: right; 
+	width: 49%;
 }
 
-
-.popis label {
-    display:block; 
+.popis label 
+{
+    display:inline; 
     margin-top:15px;
 }
  
+ 
+ /* tabulka rezervacii */
+#tabulka_rezervacie tbody .volna_rezervacia:hover
+{
+	color:black;
+	background:#666;
+}
+
+#tabulka_rezervacie tbody td
+{
+	border: 1px solid #666;
+	background:white;
+	height:20px;
+	width:18px;
+	white-space:nowrap;
+	text-align:middle;
+}
+
+#tabulka_rezervacie thead td, #tabulka_sumar thead th, #tabulka_sumar tfoot td
+{
+	font-size:8pt; 
+	background-color:#F4F4F4;
+	border: 1px solid #666;
+	text-align:center;
+}
+
+
+#tabulka_rezervacie .nazov_sportoviska
+{
+	background-color:#F4F4F4;
+}
+
+#tabulka_rezervacie, #tabulka_sumar
+{
+	border-collapse:collapse;
+	font-family:tahoma;
+	font-size:10pt;
+	line-height:130%;
+	color:black;
+	float:left;
+}
+
+#tabulka_sumar tbody
+{	
+	width:440px;
+}
+
+#tabulka_sumar tbody td
+{
+	text-align:center;	
+}
+#tabulka_sumar tfoot td
+{
+	font-weight:bold;
+	border-top:2px solid black;
+}
+
+.tabulka_sumar  td, .tabulka_sumar tr, .tabulka_sumar th
+{
+	border: 1px solid black;
+}
+
+.tabulka_rezervacie.zavrete
+{
+	width:90%;
+	height:100px;
+	vertical-align:middle;
+	text-align:center;
+	font-weight:bold;
+	color:red;
+	font-size:250%;
+	margin:auto
+}
+
+.tabulka_rezervacie.zavrete td
+{
+	font-size:250%;
+}
+
+
+.obsadena_rezervacia
+{
+	background-color:red !important;
+	display:block !important;
+	cursor:default !important;
+}
+
+.vlastna_rezervacia
+{
+	background-color:orange !important;
+	cursor:default !important;
+}
+
+
+.volna_rezervacia
+{
+	cursor:pointer;
+}
+
+.cancel
+{
+	width:15px;
+	height:15px;
+	cursor:pointer;
+}
+
+.vybrana
+{
+	background-color:green !important;
+	cursor:pointer;
+}
+
+#loading
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
+
+.pager
+{
+	margin-left:2px;
+}
+
+div.pager span 
+{
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background-color: #3B3B3B;
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+div.pager span.active 
+{
+    background-color: #0758AA;
+}
+
+.formular 
+{
+	margin : auto;
+	width : 1000px;
+	margin-bottom : 75px;
+	margin-top : 25px;	
+}
+
+.nazov_dna
+{
+	width:50px;
+	display:block;
+}
+
+/* menu */
+#cssmenu ul
+{
+	margin:0 auto;
+	padding:0;
+	list-style-type:none;
+	width:1200px;
+	position:relative;
+	display:block;
+	height:40px;
+	text-transform:uppercase;
+	font-size:11px;
+	background:transparent url('black.jpg') repeat-x top left;
+	font-family:Helvetica,Arial,Verdana,sans-serif;
+}
+
+#cssmenu li
+{
+	display:block;
+	float:left;
+	margin:0;
+	padding:0;
+	border-right:1px solid #ffffff;
+}
+
+#cssmenu li a
+{
+	display:block;
+	float:left;
+	color:#ffffff;
+	text-decoration:none;
+	padding:12px 20px 0 20px;
+	height:30px;
+}
+
+#button
+{
+	color:#ffffff;
+	padding:10px 20px;	
+	font-size:14px;
+	text-decoration:none;
+	background:transparent url('black.jpg') repeat-x top left;
+	font-family:Helvetica,Arial,Verdana,sans-serif;
+}
+
+#button:hover
+{
+	background:transparent url('blue.jpg') repeat-x top left;	
+}
+
+#cssmenu li a:hover
+{
+	background:transparent url('blue.jpg') repeat-x top left;	
+}
+
+#cssmenu .active
+{	
+	background:transparent url('blue.jpg') repeat-x top left;	
+}
+
+fieldset
+{
+	border : 2px dashed #0758AA;
+}
+
+fieldset legend
+{
+	color : #0758AA;
+	text-transform:uppercase;
+	font-size:12px;
+}
+
+.clear
+{
+	clear:both;
+}
+
+
+#kalendar table 
+{   border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#kalendar 
+{
+	float:left;
+	padding:0;
+}
+
+input[type="text"]:focus, input[type="password"]:focus 
+{ 
+  box-shadow: 0 0 5px #0758AA;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #0758AA;
+}
+
+input[type="text"], input[type="password"] 
+{
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+
+div.i
+{ 
+	display: inline-block; 
+	vertical-align: middle;
+	color:#0758AA;
+	font-weight:bold;
+	padding-top:10px;
+}
+
+.box 
+{ 
+	float:left;
+	height: 40px;
+	width: 120px; 
+	padding: 20px;
+	background-color: white; 
+	margin : 10px;
+	text-align:center;
+		
+	/* outer shadows  (note the rgba is red, green, blue, alpha) */
+	-webkit-box-shadow: 0px 0px 12px #0758AA; 
+	-moz-box-shadow: 0px 1px 6px #0758AA;
+
+	/* rounded corners */
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 7px; 
+	border-radius: 7px;
+
+	/* gradients */
+	background: -webkit-gradient(linear, left top, left bottom, 
+	color-stop(0%, white), color-stop(15%, white), color-stop(100%, #D7E9F5)); 
+	background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%); 
+}
+
+.box:hover
+{
+	cursor:pointer;
+	font-size:130%;
+	background: -webkit-gradient(linear, left top, left bottom, 
+	color-stop(0%, white), color-stop(15%, white), color-stop(100%, #98bde2)); 
+	background: -moz-linear-gradient(top, white 0%, white 55%, #98bde2 130%); 
+}
+
+#vymazat:hover, #rezervacie:hover
+{
+	cursor:pointer;
+	color:#0758AA;
+}
+
+#pridaj_zatvorenie:hover
+{
+	cursor:pointer;
+	color:#0758AA;
+}
+
+#gallery
+{
+	overflow:auto;
+	height:210px;
+}
+
+#gallery ul 
+{ 
+	list-style: none; 
+}
+
+#gallery ul li 
+{ 
+	display: inline; 
+}
+
+#gallery ul img 
+{
+	border: 5px solid #D5E4F3;
+}
+	
+#gallery ul a:hover img 
+{
+	border: 5px solid #fff;
+	color: #fff;
+}
+
+#gallery ul a:hover 
+{ 
+	color: #fff; 
+}
+
+#datum
+{
+	color:#191919;
+	font-weight:bold;
+}
+
+.legenda
+{
+	float:right;
+}
+
+.legenda table
+{
+	border-collapse:collapse;
+}
+
+.ikona
+{
+	width:18px;
+}
+
+.ikona.moja
+{	
+	background-color:orange;
+}
+.ikona.obsadena
+{	
+	background-color:red;
+}
+.ikona.volna
+{	
+	background-color:white;
+}
+
+#rezervacia
+{
+	float:left;
+	margin-left:20px;
+}
+
+.filter
+{
+	font-weight:bold;
+}
+
+#kontakt #popis
+{
+	font-weight:bold;
+}
+
+
+
+
+
+
 
 

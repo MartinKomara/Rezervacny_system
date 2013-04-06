@@ -16,7 +16,11 @@ class Menu
 		$menu['nazov'] = $nazov;
 		$menu['modul'] = $modul;
 		$menu['subor'] = $subor;		
-		$this->spojenie->makeInsert("menu",$menu);			
+		$this->spojenie->makeInsert("menu",$menu);
+		$id = $this->spojenie->insert_id();
+		$menu_skupiny['skupiny_id'] = 0;		
+		$menu_skupiny['menu_id'] = $id;
+		$this->spojenie->makeInsert("menu_skupiny",$menu_skupiny);		
 	}
 	
 	public function uprav_polozku($id, $nazov, $modul, $subor)
@@ -34,7 +38,7 @@ class Menu
 	
 	public function vrat_polozku($id)
 	{
-		$result = $this->spojenie->getZaznam("select * from menu where menu_id = $id");
+		$result = $this->spojenie->getZaznam("select menu_id as id, nazov, modul, subor from menu where menu_id = '{$id}'","menu_id");
 		return $result;
 	}
 	

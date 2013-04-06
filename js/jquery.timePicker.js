@@ -108,7 +108,7 @@
     // Keydown doesn't repeat on Firefox and Opera on Mac.
     // Using kepress for Opera and Firefox and keydown for the rest seems to
     // work with up/down/enter/esc.
-    var event = ($.browser.opera || $.browser.mozilla) ? 'keypress' : 'keydown';
+    var event = ($.support.opera || $.support.mozilla) ? 'keypress' : 'keydown';
     $(elm)[event](function(e) {
       var $selected;
       keyDown = true;
@@ -191,7 +191,7 @@
   $.fn.timePicker.defaults = {
     step:30,
     startTime: new Date(0, 0, 0, 0, 0, 0),
-    endTime: new Date(0, 0, 0, 23, 30, 0),
+    endTime: new Date(0, 0, 0, 23, 59, 0),
     separator: ':',
     show24Hours: true
   };
@@ -204,7 +204,7 @@
     // Trigger element's change events.
     $(elm).change();
     // Keep focus for all but IE (which doesn't like it)
-    if (!$.browser.msie) {
+    if (!$.support.msie) {
       elm.focus();
     }
     // Hide picker

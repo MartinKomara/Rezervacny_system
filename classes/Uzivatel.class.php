@@ -95,13 +95,13 @@ class Uzivatel
 	
 	public function uzivatel($id)
 	{
-                $this->crypt  = new Crypto();	
+        $this->crypt  = new Crypto();	
 		$result = $this->spojenie->getZaznam("select uzivatel.uzivatel_id as id, nick, meno, priezvisko, tel_cislo, e_mail from uzivatel where uzivatel_id = '{$id}'","id");
-                return $result;	
+        return $result;	
 	}
         
-        public function vrat_uzivatelov()
-        {
+    public function vrat_uzivatelov()
+    {
         $uzivatelia = $this->spojenie->getZaznamy("SELECT uzivatel.uzivatel_id as id, uzivatel.meno as meno, uzivatel.nick as nick,
                                                        uzivatel.priezvisko as priezvisko, uzivatel.tel_cislo as tel_cislo,
                                                        uzivatel.e_mail as e_mail FROM uzivatel","id");
